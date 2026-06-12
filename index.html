@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EU Net Salary Calculator — Compare Take-Home Pay Across 20 Countries</title>
+  <meta name="description" content="Free tool to compare your net take-home salary across 20 European countries side by side. See income tax, social security, and actual pay in seconds." />
+  <meta property="og:title" content="EU Net Salary Calculator" />
+  <meta property="og:description" content="Compare your real take-home salary across Germany, Netherlands, France, Spain & 16 more EU countries instantly." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-icon">€</span>
+        <span class="logo-text">EUSalary<span class="logo-dot">.calc</span></span>
+      </a>
+      <nav class="header-nav">
+        <span id="rate-ticker" class="rate-ticker" title="Live exchange rates">
+          <span class="ticker-dot"></span>
+          <span id="ticker-text">Fetching live rates…</span>
+        </span>
+        <a href="https://github.com" class="gh-link" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="badge">🌍 20 Countries</span>
+        <span class="badge badge-green">Live Exchange Rates</span>
+        <span class="badge">Free Forever</span>
+      </div>
+      <h1 class="hero-title">
+        What do you <em>actually</em> take home<br/>
+        <span class="hero-title-highlight">working in Europe?</span>
+      </h1>
+      <p class="hero-sub">Enter a gross salary. Pick countries. See your real net pay across the EU — with live currency conversion, instant tax breakdown, and side-by-side comparison.</p>
+    </div>
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+  </section>
+
+  <!-- ── MAIN CALCULATOR ── -->
+  <main class="container main-content">
+
+    <!-- INPUT CARD -->
+    <div class="card input-card">
+      <div class="card-header">
+        <h2 class="card-title">Configure Your Comparison</h2>
+        <p class="card-subtitle">All calculations happen instantly in your browser — no data is sent anywhere.</p>
+      </div>
+
+      <div class="input-grid">
+        <!-- Salary -->
+        <div class="field-group field-salary">
+          <label for="salary-input" class="field-label">Gross Annual Salary</label>
+          <div class="input-wrap">
+            <span class="input-prefix" id="currency-symbol">€</span>
+            <input
+              type="number"
+              id="salary-input"
+              class="salary-input"
+              placeholder="60000"
+              min="1000"
+              max="10000000"
+              step="1000"
+              autocomplete="off"
+            />
+          </div>
+          <p class="field-hint">Enter your salary in the selected currency</p>
+        </div>
+
+        <!-- Currency -->
+        <div class="field-group field-currency">
+          <label class="field-label">Display Currency</label>
+          <div class="currency-toggle" role="group" aria-label="Select display currency">
+            <button class="currency-btn active" data-currency="EUR">€ EUR</button>
+            <button class="currency-btn" data-currency="USD">$ USD</button>
+            <button class="currency-btn" data-currency="GBP">£ GBP</button>
+            <button class="currency-btn" data-currency="CHF">₣ CHF</button>
+          </div>
+          <p class="field-hint" id="rate-hint">Loading live rates…</p>
+        </div>
+
+        <!-- Employment Type -->
+        <div class="field-group field-type">
+          <label class="field-label">Employment Type</label>
+          <div class="type-toggle" role="group" aria-label="Employment type">
+            <button class="type-btn active" data-type="employee">
+              <span>👔</span> Employee
+            </button>
+            <button class="type-btn" data-type="selfemployed">
+              <span>💼</span> Self-Employed
+            </button>
+          </div>
+        </div>
+
+        <!-- Period -->
+        <div class="field-group field-period">
+          <label class="field-label">Show Results As</label>
+          <div class="period-toggle" role="group" aria-label="Result period">
+            <button class="period-btn active" data-period="annual">Annual</button>
+            <button class="period-btn" data-period="monthly">Monthly</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Country Selector -->
+      <div class="country-section">
+        <div class="country-section-header">
+          <h3 class="field-label">Select Countries to Compare</h3>
+          <div class="country-actions">
+            <button id="select-all" class="link-btn">Select All</button>
+            <span class="divider">·</span>
+            <button id="select-none" class="link-btn">Clear</button>
+            <span class="divider">·</span>
+            <button id="select-popular" class="link-btn">Top 5</button>
+          </div>
+        </div>
+        <div id="country-grid" class="country-grid">
+          <!-- Populated by JS -->
+          <div class="country-grid-skeleton">
+            <div class="skeleton-item"></div>
+            <div class="skeleton-item"></div>
+            <div class="skeleton-item"></div>
+            <div class="skeleton-item"></div>
+            <div class="skeleton-item"></div>
+            <div class="skeleton-item"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button id="calculate-btn" class="calculate-btn" disabled>
+          <span class="btn-text">Calculate Net Salary</span>
+          <span class="btn-icon">→</span>
+        </button>
+        <span id="selected-count" class="selected-count">Select at least 1 country</span>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results-section" class="results-section hidden">
+      <div class="results-header">
+        <div>
+          <h2 class="results-title">Your Net Salary Comparison</h2>
+          <p class="results-meta" id="results-meta"></p>
+        </div>
+        <div class="results-actions">
+          <button id="save-btn" class="icon-btn" title="Save this comparison">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save
+          </button>
+          <button id="share-btn" class="icon-btn" title="Copy share link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share
+          </button>
+        </div>
+      </div>
+
+      <!-- Summary bar -->
+      <div id="summary-bar" class="summary-bar"></div>
+
+      <!-- Table -->
+      <div class="table-wrapper">
+        <table class="results-table" id="results-table">
+          <thead>
+            <tr>
+              <th class="col-rank">#</th>
+              <th class="col-country">Country</th>
+              <th class="col-gross sortable" data-col="gross">Gross <span class="sort-icon">↕</span></th>
+              <th class="col-tax sortable" data-col="incomeTax">Income Tax <span class="sort-icon">↕</span></th>
+              <th class="col-ss sortable" data-col="socialSecurity">Social Sec. <span class="sort-icon">↕</span></th>
+              <th class="col-net sortable active-sort" data-col="net">Net Salary <span class="sort-icon">↓</span></th>
+              <th class="col-rate">Effective Rate</th>
+              <th class="col-bar">Visual</th>
+            </tr>
+          </thead>
+          <tbody id="results-body">
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Save panel -->
+      <div id="save-panel" class="save-panel hidden">
+        <input type="text" id="save-name" class="save-input" placeholder="Name this comparison (e.g. Job Offer Berlin)" maxlength="60" />
+        <button id="save-confirm-btn" class="btn-primary">Save Comparison</button>
+        <button id="save-cancel-btn" class="link-btn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- SAVED COMPARISONS -->
+    <div id="saved-section" class="saved-section hidden">
+      <div class="saved-header">
+        <h2 class="section-title">Saved Comparisons</h2>
+        <button id="clear-all-btn" class="link-btn link-btn-danger">Clear All</button>
+      </div>
+      <div id="saved-list" class="saved-list"></div>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <details class="faq-item">
+          <summary>How accurate are these calculations?</summary>
+          <p>They use the official 2025–2026 tax brackets and social security rates from each country's tax authority. They are accurate for a single person with no dependents and standard deductions. Regional taxes (e.g. Germany's church tax, Italy's regional levy) are not included. Always verify with a local tax professional before making financial decisions.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Where do the currency rates come from?</summary>
+          <p>Live exchange rates are fetched from the <strong>Frankfurter API</strong> (api.frankfurter.app) on every page load. This is a free, open-source API sourced from the European Central Bank. Rates update every business day.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What's the difference between Employee and Self-Employed?</summary>
+          <p>As an <strong>employee</strong>, your employer also pays social security on top of your salary. As <strong>self-employed</strong>, you pay both the employee and employer shares of social security yourself, which is typically 30–40% more in total contributions.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is my data saved anywhere?</summary>
+          <p>No. All calculations happen entirely in your browser. Saved comparisons are stored in your browser's <strong>localStorage</strong> only — they never leave your device. No analytics, no tracking, no server.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Which countries are included?</summary>
+          <p>Germany, Netherlands, France, Spain, Italy, Poland, Portugal, Sweden, Denmark, Austria, Belgium, Ireland, Czechia, Hungary, Romania, Greece, Finland, Luxembourg, Switzerland (non-EU but popular), and Norway (non-EU but Schengen). 20 countries total.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why is Hungary and Romania net salary so high?</summary>
+          <p>Both countries have extremely low flat income tax rates (Hungary 15%, Romania 10%). However, social security contributions are high (Romania 35%), and average salaries are much lower than Western Europe, so absolute take-home amounts are lower even if the percentage kept is higher.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <strong>EUSalary.calc</strong> — Free forever. Built with HTML, CSS &amp; JavaScript.
+        <br/>
+        <span class="footer-disclaimer">⚠️ Estimates only. Not financial or tax advice. Verify with a qualified professional.</span>
+      </div>
+      <div class="footer-right">
+        <span id="tax-data-date">Tax data: 2025–2026</span>
+        <span>·</span>
+        <a href="https://github.com" target="_blank" rel="noopener">Source on GitHub</a>
+        <span>·</span>
+        <a href="https://frankfurter.app" target="_blank" rel="noopener">Rates: Frankfurter API</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── TOAST ── -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ── SCRIPTS ── -->
+  <script src="js/countries.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
