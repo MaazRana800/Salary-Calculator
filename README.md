@@ -45,4 +45,7 @@ git push -u origin main
 Estimates only. Not financial or tax advice. Always verify with a qualified professional.
 
 ---
-Built with ❤️ by [Your Name] — MIT License
+Built with ❤️ by [SoftwareHub268] — MIT License
+Contact us : softwarehub268@gmail.com
+whatsapp :+923081961618
+To Order Project Feel free to reach us
