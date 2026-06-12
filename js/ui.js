@@ -70,8 +70,10 @@ function renderCountryGrid() {
     });
   });
 
-  updateSelectedCount();
+ function getSelectedKeys() {
+  return [...document.querySelectorAll(".country-chip.selected")].map(c => c.dataset.key);
 }
+
 
 function getSelectedKeys() {
   return [...document.querySelectorAll(".country-chip.selected")].map(c => c.dataset.key);
