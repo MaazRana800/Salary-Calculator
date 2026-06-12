@@ -42,7 +42,11 @@ async function fetchLiveRates() {
 function renderCountryGrid() {
   const grid = document.getElementById("country-grid");
   const last = getLastInput();
-  const defaultSelected = last ? last.selectedKeys : POPULAR_COUNTRIES;
+  
+  // 🛡️ FIX: Ensure defaultSelected is ALWAYS an array, even if last.selectedKeys is missing
+  const defaultSelected = (last && Array.isArray(last.selectedKeys)) 
+    ? last.selectedKeys 
+    : POPULAR_COUNTRIES;
 
   grid.innerHTML = Object.entries(COUNTRIES).map(([key, c]) => {
     const sel = defaultSelected.includes(key);
@@ -57,7 +61,7 @@ function renderCountryGrid() {
         </span>
       </label>`;
   }).join("");
-
+} // Remember to close your function brace if it was cut off!
   // click handlers
   grid.querySelectorAll(".country-chip").forEach(chip => {
     chip.addEventListener("click", () => {
