@@ -20,7 +20,7 @@ async function fetchLiveRates() {
   const tickerText = document.getElementById("ticker-text");
   const rateHint   = document.getElementById("rate-hint");
   try {
-    const res  = await fetch("https://api.frankfurter.app/latest?from=EUR&to=USD,GBP,CHF");
+    const res  = await fetch("https://api.frankfurter.dev/latest?from=EUR&to=USD,GBP,CHF");
     if (!res.ok) throw new Error("Rate fetch failed");
     const data = await res.json();
     appState.rates = data.rates;   // { USD: 1.08, GBP: 0.86, CHF: 0.96 }
