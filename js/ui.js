@@ -63,12 +63,15 @@ function renderCountryGrid() {
   }).join(""); // 👈 Closes .map() and .join()
 } // 👈 Closes the function block cleanly!
   // click handlers
-  grid.querySelectorAll(".country-chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      chip.classList.toggle("selected");
-      updateSelectedCount();
-    });
-  });
+ // 🛡️ Better Approach: Dynamic Event Delegation
+document.getElementById("country-grid").addEventListener("click", (e) => {
+  // Find if the clicked element is (or is inside) a country-chip
+  const chip = e.target.closest(".country-chip");
+  if (!chip) return; // Exit if they clicked the empty space between chips
+
+  chip.classList.toggle("selected");
+  updateSelectedCount(); // Safely triggers your count update function
+});
 
  function getSelectedKeys() {
   return [...document.querySelectorAll(".country-chip.selected")].map(c => c.dataset.key);
