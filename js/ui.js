@@ -43,7 +43,7 @@ function renderCountryGrid() {
   const grid = document.getElementById("country-grid");
   const last = getLastInput();
   
-  // 🛡️ FIX: Ensure defaultSelected is ALWAYS an array, even if last.selectedKeys is missing
+  // 🛡️ Safe fallback to ensure defaultSelected is always an array
   const defaultSelected = (last && Array.isArray(last.selectedKeys)) 
     ? last.selectedKeys 
     : POPULAR_COUNTRIES;
@@ -60,8 +60,8 @@ function renderCountryGrid() {
           </svg>
         </span>
       </label>`;
-  }).join("");
-} // Remember to close your function brace if it was cut off!
+  }).join(""); // 👈 Closes .map() and .join()
+} // 👈 Closes the function block cleanly!
   // click handlers
   grid.querySelectorAll(".country-chip").forEach(chip => {
     chip.addEventListener("click", () => {
